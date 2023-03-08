@@ -1,0 +1,1 @@
+((incoming_bits ^ match_bits) & ~ignore_bits) == 0

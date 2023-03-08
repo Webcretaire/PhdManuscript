@@ -1,0 +1,116 @@
+In this PhD, we have presented a new simulator, S4BXI. After validating our
+model of Portals, we have used it to run high-level APIs, which is rarely done
+in other state-of-the-art simulators. This allowed us to execute complete
+applications which rely on MPI, and validate the accuracy of our simulator in a
+wide range of scenarios. We have compared our model with the closest existing
+simulator, SMPI, and shown the strengths and weaknesses of both approaches. In
+particular, we have seen that in the majority of cases, S4BXI has a higher
+accuracy and a lower performance compared to SMPI, which is expected from our
+lower-level model.
+
+We have leveraged both models' strengths in order to design a more flexible
+simulation method, which allows users to switch between different models of MPI
+at runtime. Even though it performed as we expected in most simulations, we also
+found several cases in which the performance of our approach followed unexpected
+patterns. Even in favorable cases, the execution time of simulations with
+different proportions of each model is always of a similar order of magnitude,
+therefore it is debatable whether it is desirable to add a layer of complexity
+for a small performance gain. Overall, this approach would probably give better
+results with different network models (lower-level or more performant). Finally,
+our approach and its unexpected results raise a question regarding simulation in
+general: since our models approximate very complex real-world behaviors, it is
+important to contain the complexity of the model itself to be able to interpret
+the results with confidence (except in the case of emulators of course, which
+are complete mirrors of real-world hardware). Overall, being able to switch
+between network models made more sense when S4BXI's performance was worse than
+it is today, since we managed to optimize it in parallel with our
+``model-change'' study. This confirms that this idea would only be useful if we
+implemented it with very different models, such as an emulator and an analytical
+model for example.
+
+\paragraph{Lessons learnt about SimGrid:} Throughout this work, we have used
+SimGrid extensively. Its Actor model proved very efficient to describe the
+behavior of independent simulated hardware components (CPU cores and different
+components of BXI NICs). In particular, this paradigm allows developers of
+simulators to structure their code, usually with one Actor for each piece of
+simulated hardware, and explicit communications between these Actors.
+Nevertheless, this paradigm also allows scheduling one-time asynchronous
+activities using anonymous short-lived Actors, which makes this approach very
+flexible. Furthermore, the flexibility of SimGrid's Actors allowed us to test
+different scenarios quickly, for example by implementing the processing of the
+NIC once, and testing different deployments of the Actors on our platform.
+
+Additionally, SimGrid's asynchronous cooperative Actors executed in a
+single-threaded simulation simplify greatly the development of simulators,
+because there is little potential for race-conditions: since the Actors are
+executed sequentially on the ``host'' machine that runs the simulator,
+race-conditions can only happen when Actors perform operations that yield to
+SimGrid's scheduler (and all race conditions are only with respect to the
+simulated time). Therefore, it is usually safe to access any data structure in
+between these operations, as there is always only one Actor running. Obviously,
+the fact that SimGrid's simulators are single-threaded raises the issue of
+performance, but this problem is not as important as it seems for two reasons:
+first, multi-threaded simulators require many synchronizations, which limits
+their scaling. Second, the fact that our simulation run on one thread means that
+many simulations can be executed in parallel (either on different cores, or on
+different machines). For example, for our OSU benchmarks, we were able to run
+all 31 benchmarks at the same time, so even if the slowdown of each simulation
+compared to a real-world experiment is significant, the total time of our
+experiments ends up being divided by 31, which makes it more reasonable.
+Obviously, it is not always useful to run several simulations in parallel (for
+example when running a large application to dimension a cluster), but it is
+still a common use case of this type of model, for example when exploring a
+large parameter space (in order to optimize the configuration of a piece of
+hardware or software). Therefore, it is important to keep in mind what the
+strengths of our model are: it is not a good fit for all studies on HPC
+clusters, but we believe that it is an efficient tool for many experiments.
+
+Finally, we believe that SimGrid's flow model is a good tool to create
+simulators at an intermediate level of abstraction (by modeling communications
+at message-level). Nevertheless, with S4BXI we reach the limit of this type of
+model: we believe that any simulator that attempts to model hardware at a lower
+level should rely on a packet-level model instead. Indeed, our model of CPU
+cores, NICs, and PCIe buses already add a significant amount of complexity
+compared to simpler models, for example SMPI which models a full machine a
+single Host. Therefore, modeling transfers at a lower level, for example to
+better represent the interdependency between several communications, would
+benefit from a packet-level model. On the other hand, such a model would
+probably be pathologic for the performance of a flow-model, as it would cause
+require SimGrid to handle a large number of transfers each time a communication is
+performed by the user application.
+
+\paragraph{Long term plans:} The flexibility of our model opens the door to many
+studies, for example with other high-level APIs, or different ``what-if''
+scenarios to help the co-design of next-generation hardware. In the context of
+this PhD we experimented with OpenSHMEM, and designed experiments to evaluate
+the usefulness of flow-control in BXI NICs, but many other studies could be
+conducted with the tools that we provide. 
+
+In this PhD, we presented a few studies that could be performed in the short
+term using S4BXI, but in the longer term several ideas could be worked on. As
+presented previously, it would be interesting to design network models that are
+either very simplistic, and therefore very fast, or very detailed, in order to
+better leverage the framework that we created to switch between different MPI
+models. A different approach to improve the performance of simulations would be
+to make them parallel: even if this would cause many difficulties, which we
+already detailed, being able to execute simulated processes in parallel is an
+active research topic, with many simulators attempting it. Overall, whether it
+is through parallelization or model changes, the performance improvement that
+would be desirable is of several order of magnitudes, because it would allow
+this type of simulation to be used in completely different use case: for example
+dimensioning clusters composed of thousands of nodes, which is unrealistic with
+the current version of S4BXI. While it is unreasonable to expect a low-level
+model to run at this scale, a combination of parallelization and different
+network models could allow us to reach this performance in the most favorable
+cases, and maybe occasionally switch to a slower but more accurate model.
+
+From a functionality perspective, it would be valuable to support the use of
+OpenMP and CUDA code within applications in S4BXI. This is a very ambitious
+task, but it could benefit other simulators as well if it was implemented in
+SimGrid directly, which would make both S4BXI and SMPI more flexible. Even
+though supporting this type of API would be very complex, SimGrid's development
+team has showed interest in studying it: in particular, there has been
+preliminary work on the support of the
+\inline{pthread}
+library\footnote{\url{https://framagit.org/simgrid/simgrid/-/issues/112}}, which
+is a first step towards OpenMP support.

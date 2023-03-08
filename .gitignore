@@ -1,0 +1,38 @@
+## ignore LaTeX generated files
+# Common LaTeX stuff
+*.log
+*.aux
+*.toc
+*.dvi
+# BibTeX
+*.bbl
+*.blg
+# BibTeX backref
+*.brf
+# makeindex
+*.idx
+*.ilg
+*.ind
+# LaTeX-beamer
+*.nav
+*.snm
+*.out
+*.vrb
+# LaTeX.mk from latex-utils
+*.pdf.mk
+*_NEED_REBUILD
+*_FAILED
+# Thing from VScode LaTeX extension it seems
+*.synctex.gz
+__latexindent_temp.tex
+*.bcf
+*.fls
+*.fdb_latexmk
+*.run.xml
+*.tdo
+*.xdv
+# Garbage
+*(busy)
+
+main.pdf
+main_*.pdf

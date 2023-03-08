@@ -1,0 +1,23 @@
+[0.000000] [xbt_cfg/INFO] Configuration change: Set 'network/loopback-bw' to '99000000000'
+[0.000000] [xbt_cfg/INFO] Configuration change: Set 'network/loopback-lat' to '0.000000001'
+[0.000000] [xbt_cfg/INFO] Configuration change: Set 'network/model' to 'CM02'
+[pm0-nod01:initiator:(1) 0.000000] [example/INFO] Sending ping of size 1
+[pm0-nod01:initiator:(1) 0.000000] [example/INFO] Pong (sequence = 0)
+[pm0-nod01:initiator:(1) 0.000000] [example/INFO] Sending ping of size 2
+[pm0-nod01:initiator:(1) 0.000000] [example/INFO] Pong (sequence = 1)
+[ ... 11 other ping pongs ... ]
+[pm0-nod01:initiator:(1) 0.000000] [example/INFO] Sending ping of size 16384
+[pm0-nod01:initiator:(1) 0.000001] [example/INFO] Pong (sequence = 14)
+[pm0-nod01:initiator:(1) 0.000001] [example/INFO] Sending ping of size 32768
+[pm0-nod01:initiator:(1) 0.000001] [example/INFO] Pong (sequence = 15)
+[pm0-nod01:initiator:(1) 0.000001] [example/INFO] Sending ping of size 65536
+[pm0-nod01:initiator:(1) 0.000003] [example/INFO] Pong (sequence = 16)
+[pm0-nod01:initiator:(1) 0.000003] [example/INFO] Sending ping of size 131072
+[pm0-nod01:initiator:(1) 0.000005] [example/INFO] Pong (sequence = 17)
+[pm0-nod01:initiator:(1) 0.000005] [example/INFO] Sending ping of size 262144
+[pm0-nod01:initiator:(1) 0.000011] [example/INFO] Pong (sequence = 18)
+[pm0-nod01:initiator:(1) 0.000011] [example/INFO] Sending ping of size 524288
+[pm0-nod01:initiator:(1) 0.000021] [example/INFO] Pong (sequence = 19)
+[pm0-nod01:initiator:(1) 0.000021] [example/INFO] Sending ping of size 1048576
+[pm0-nod01:initiator:(1) 0.000042] [example/INFO] Pong (sequence = 20)
+[0.000042] [example/INFO] Simulation is over

@@ -1,0 +1,4 @@
+-    OPAL_MODEX_RECV(ret, &mca_btl_bxi_component.super.btl_version,
+-                    &proc->proc_name, (void**) id, &size);
++    ret = s4bxi_get_ptl_process_from_rank(proc->proc_name.vpid, *id);
++    size = sizeof(ptl_process_t);

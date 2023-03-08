@@ -1,0 +1,21 @@
+\usepackage[textsize=tiny]{todonotes}
+
+\newcommand{\todoMM}[1]{{\todo[color=red!60]{MM: #1}}}
+\newcommand{\todoLH}[1]{{\todo[color=blue!60]{LH: #1}}}
+\newcommand{\todoJE}[1]{{\todo[color=green!60]{JE: #1}}}
+\newcommand{\rqJE}[1]{{\todo[color=magenta!60]{JE: #1}}}
+\newcommand{\todoGP}[1]{{\todo[color=orange!60]{GP: #1}}}
+
+\definecolor{MyGreen}{RGB}{0, 180, 0}
+
+\newcommand{\MM}[1]{{\color{red}MM: #1}} 
+\newcommand{\LH}[1]{{\color{blue}LH: #1}} 
+\newcommand{\JE}[1]{{\color{MyGreen}JE: #1}}
+\newcommand{\GP}[1]{{\color{orange}GP: #1}}
+
+\newcommand{\oldMM}[1]{\todoMM{-}} 
+\newcommand{\oldLH}[1]{\todoLH{-}} 
+\newcommand{\oldJE}[1]{\todoJE{-}}
+\newcommand{\oldGP}[1]{\todoGP{-}}
+
+\drafttrue

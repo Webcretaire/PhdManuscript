@@ -1,0 +1,244 @@
+\documentclass[11pt,a4paper,twoside]{book}
+
+% LTeX: language=en-US
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{hyperref}
+\usepackage{epigraph}
+\usepackage{microtype}
+
+\usepackage{placeins}
+
+\usepackage{graphicx}
+\graphicspath{{images/}{benchmark_data/}}
+
+\usepackage{pdfpages}
+
+\usepackage{pgfornament}
+
+\usepackage[pagestyles]{titlesec}
+
+\usepackage[nottoc]{tocbibind}
+
+\usepackage{txfonts}
+\usepackage{fancyhdr}
+\usepackage{indentfirst}
+
+\usepackage{lmodern}	% font set: Latin Modern
+\usepackage{charter}	% font set: Charter\newlength\baselength
+\usepackage[
+  inner=3.5cm,
+  outer=2.5cm,
+  top=3cm,
+  bottom=3.5cm,
+  footskip=1.5cm
+]{geometry}
+
+\usepackage{multicol}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage[justification=centering]{caption}
+\usepackage{subcaption}
+
+\usepackage{xcolor}
+\definecolor{gray98}{rgb}{0.98,0.98,0.98}
+\definecolor{gray20}{rgb}{0.20,0.20,0.20}
+\definecolor{gray60}{rgb}{0.6,0.6,0.6}
+\definecolor{bgray}{RGB}{248, 248, 248}
+\definecolor{amgreen}{RGB}{48, 155, 44}
+\definecolor{darkgreen}{RGB}{11, 100, 10}
+\definecolor{amblue}{RGB}{50, 125, 184}
+
+\definecolor{diffstart}{RGB}{50, 50, 50}
+\definecolor{diffincl}{RGB}{0, 180, 0}
+\definecolor{diffrem}{RGB}{180, 0, 0}
+
+\usepackage{listings}
+\lstdefinelanguage{diff}{
+  basicstyle=\ttfamily\small,
+  morecomment=[f][\color{diffstart}]{@@},
+  morecomment=[f][\color{diffincl}]{+\ },
+  morecomment=[f][\color{diffrem}]{-\ },
+}
+\lstset{
+    backgroundcolor=\color{gray98},     % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+    basicstyle=\ttfamily,               % the size of the fonts that are used for the code
+    breakatwhitespace=false,            % sets if automatic breaks should only happen at whitespace
+    breaklines=true,                    % sets automatic line breaking
+    showlines=true,                     % 
+    captionpos=b,                       % sets the caption-position to bottom
+    commentstyle=\color{gray60},        % comment style
+    extendedchars=true,                 % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+    frame=single,                       % adds a frame around the code
+    keepspaces=true,                    % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+    columns=flexible,
+    keywordstyle=\color{amgreen},       % keyword style
+    numbers=left,                       % where to put the line-numbers; possible values are (none, left, right)
+    numbersep=5pt,                      % how far the line-numbers are from the code
+    numberstyle=\tiny\color{gray20},    % the style that is used for the line-numbers
+    rulecolor=\color{gray20},           % if not set, the frame-color may be changed on line-breaks within not-black text (\eg comments (green here))
+    showspaces=false,                   % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+    showstringspaces=false,             % underline spaces within strings only
+    showtabs=false,                     % show tabs within strings adding particular underscores
+    stepnumber=1,                       % the step between two line-numbers. If it is 1, each line will be numbered
+    stringstyle=\color{amblue},         % string literal style
+    tabsize=2,                          % sets default tabsize to 4 spaces
+    % title=\lstname,                     % show the filename of files included with \lstinputlisting; also try caption instead of title
+    inputpath=images/
+}
+
+\newif\ifdraft
+\input{options.tex}
+
+\newcommand{\inline}[1]{\lstinline[breakatwhitespace,basicstyle=\ttfamily\bfseries\color{darkgreen}]{#1}}
+
+\newcommand{\portalsAbbr}[2]{\textbf{#1 (#2)}}
+
+\newcommand{\includegraphicsOverflow}[2]{\makebox[\textwidth][c]{\includegraphics[width=#2\textwidth]{#1}}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[RO]{\pgfornament[anchor = south east, height = 0.5em, color = amgreen]{48} \thepage}
+\fancyfoot[RE]{\pgfornament[anchor = south, height = 1.3em, color = amgreen]{33}}
+\fancyfoot[LE]{\thepage \hspace{1.3mm} \pgfornament[anchor = south west, height = 0.5em, color = amgreen]{47}}
+\fancyfoot[LO]{\pgfornament[anchor = south, height = 1.3em, color = amgreen]{34}}
+\fancyfoot[CO, CE]{\textit{\nouppercase\leftmark}}
+\renewcommand\headrulewidth{0pt}
+\renewcommand\footrulewidth{0pt}
+
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}%
+{\pgfornament[anchor=south,height=1em,color=amgreen]{31} \chaptertitlename\ \thechapter}%
+{10pt}%
+{\Huge}
+
+\titleformat{name=\chapter,numberless}[block]
+{\normalfont\huge\bfseries}%
+{\pgfornament[anchor=south,height=1em,color=amgreen]{31}\hspace{-2mm}}%
+{10pt}%
+{\Huge}
+
+\titleformat{\section}
+{\FloatBarrier\normalfont\Large\bfseries}{\pgfornament[anchor=south,height=0.66em,color=amgreen]{17} \thesection}{1em}{}
+\titleformat{\subsection}
+{\FloatBarrier\normalfont\large\bfseries}{\pgfornament[anchor=south,height=0.66em,color=amgreen]{11} \thesubsection}{1em}{}
+\titleformat{\subsubsection}
+{\FloatBarrier\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% Redefine the plain page style (for chapter's first page)
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    \fancyfoot[RO]{\pgfornament[anchor = south east, height = 0.5em, color = amgreen]{48} \thepage}
+    \fancyfoot[RE]{\pgfornament[anchor = south, height = 1.3em, color = amgreen]{33}}
+    \fancyfoot[LE]{\thepage \hspace{1.3mm} \pgfornament[anchor = south west, height = 0.5em, color = amgreen]{47}}
+    \fancyfoot[LO]{\pgfornament[anchor = south, height = 1.3em, color = amgreen]{34}}
+    \renewcommand\headrulewidth{0pt}
+    \renewcommand\footrulewidth{0pt}
+}
+
+\hypersetup{
+    colorlinks=true,
+    allcolors=amgreen,
+    % linkcolor
+    % anchorcolor
+    % citecolor
+    % filecolor
+    % menucolor
+    % runcolor
+    % urlcolor
+    pdftitle={A full stack simulator for HPC: Multi-level modeling of the BXI
+    interconnect to predict the performance of MPI applications},
+    pdfpagemode=FullScreen}
+
+\title{A full stack simulator for HPC: Multi-level modeling of the BXI
+interconnect to predict the performance of MPI applications}
+\author{Julien \textsc{Emmanuel}}
+\date{2023}
+
+\begin{document}
+
+\frontmatter % uses roman page numbers
+
+\ifdraft
+\maketitle
+\else
+\includepdf[pages=1]{./page-de-these-1.pdf}
+\fi
+
+\input{content/0_resume.tex}
+
+\chapter*{Remerciements}
+\addcontentsline{toc}{chapter}{Remerciements} 
+
+\input{content/0_remerciements.tex}
+
+\chapter*{Résumé détaillé}
+\addcontentsline{toc}{chapter}{Résumé détaillé}
+
+\input{content/0_resume_detaille.tex}
+
+\cleardoublepage
+
+% LTeX: language=fr-FR
+
+\vspace*{7cm}
+\begin{flushright}
+\parbox[r]{5.6cm}{\raggedleft\textit{À mon grand-père, qui n'aurait pas compris un mot de ce qui va suivre, mais qui aurait été très fier}}
+\end{flushright}
+
+% LTeX: language=en-US
+
+\tableofcontents
+
+\mainmatter % arabic page numbers
+
+\chapter{Introduction}
+\label{chap:intro}
+
+\input{content/1_introduction.tex}
+
+\chapter{Context: High Performance Computing}
+\label{chap:context_hpc}
+
+\input{content/2_context_hpc.tex}
+
+\chapter{Related work around simulation}
+\label{chap:biblio_simu}
+
+\input{content/3_related_work_simu.tex}
+
+\chapter{S4BXI, a low-level Portals model}
+\label{chap:low_level}
+
+\input{content/4_portals.tex}
+
+\chapter{Usage with high-level APIs}
+\label{chap:high_level}
+
+\input{content/5_high_level.tex}
+
+\chapter{A more flexible accuracy/performance tradeoff}
+\label{chap:model_change}
+
+\input{content/6_model_change.tex}
+
+\chapter{Ongoing and future work}
+\label{chap:flowctrl}
+
+\input{content/7_flow_control.tex}
+
+\chapter{Conclusion}
+\label{chap:conclusion}
+
+\input{content/8_conclusion.tex}
+
+\bibliographystyle{alpha}
+\bibliography{refs}
+
+\appendix
+\input{content/appendix.tex}
+
+\end{document}

@@ -1,0 +1,78 @@
+% LTeX: language=fr-FR
+
+\chapter*{Résumé}
+\addcontentsline{toc}{chapter}{Résumé} 
+
+Pour obtenir les meilleures performances possibles dans les supercalculateurs,
+il est aujourd'hui nécessaire d'utiliser des réseaux d'interconnexion de plus en
+plus sophistiqués. C'est pour répondre à ce besoin qu'Atos produit le réseau
+BXI, composé de cartes réseau (NIC) et de commutateurs (switches). Le
+paramétrage optimal de ce matériel est une problématique complexe, en
+particulier parce que l'espace de paramètres que l'on souhaite explorer est
+grand, et qu'il n'est pas possible de faire des expériences réelles permettant
+d'explorer cet espace. Ainsi, on souhaite utiliser un simulateur pour évaluer
+les performances d'une application donnée pour un ensemble de paramètres. 
+
+La principale difficulté rencontrée lors du développement de tels simulateurs
+provient de la complexité de la pile logicielle utilisée sur les grappes de
+calcul que l'on souhaite simuler~: les applications scientifiques sont souvent
+programmées à un haut niveau d'abstraction et leurs communications traversent
+plusieurs couches logicielles avant d'être exécutées par le matériel. Il faut
+donc choisir laquelle de ces couches logicielle intercepter en simulation, afin
+de garantir une bonne précision tout en conservant des performances acceptables. 
+
+Notre contribution prend la forme d'un simulateur du réseau BXI, qui propose un
+modèle simplifié du matériel, tout en permettant l'exécution d'applications
+complètes sur plusieurs machines simulées. Ce simulateur permet de prendre en
+compte les spécificités de toutes les couches logicielles intermédiaires entre
+le NIC et l'application simulée, moyennant des modifications mineures dans
+celles-ci. Nous validons ce modèle expérimentalement en comparant l'exécution de
+benchmarks sur une grappe de calcul équipée de matériel BXI et la simulation de
+ces benchmarks dans notre simulateur. Ce modèle bas niveau ayant un coût en
+performance non négligeable, nous présentons également une méthodologie pour
+alterner dynamiquement entre plusieurs modèles de précision différente au cours
+de l'exécution d'une simulation, afin de permettre à l'utilisateur de paramétrer
+au mieux quelles parties de l'application doivent être simulées avec le plus de
+précision.
+
+% LTeX: language=en-US
+
+\makeatletter
+\@openrightfalse
+
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract} 
+
+In order to obtain the best possible performance in supercomputers, it is
+necessary to use interconnection networks of ever-increasing complexity. In
+order to provide such networks, Atos designs the BXI interconnect, which is
+composed of network controllers (NIC) and switches. Optimal configuration of
+this hardware is a complex task, in particular because the parameter space to
+explore is very large, and it is not practically possible to run real-world
+experiments to explore this parameter space. For this reason, we wish to use a
+simulator to evaluate the performance of a given application for a set of
+parameters.
+
+The main difficulty that arises when developing such simulators comes from the
+complexity of the software stack that is used on the clusters that we wish to
+model: scientific applications are often programmed at a high level of
+abstraction, and their communications go through several layers of software
+before they are executed by the hardware. Therefore, it is important to choose
+which software layer to intercept in simulation, in order to get a good accuracy
+of the model while keeping acceptable performance of the simulation.
+
+Our contribution is a simulator of the BXI interconnect, which provides a
+simplified model of the hardware, while allowing the execution of complete
+applications of several simulated machines. This simulator accounts for the
+properties of all layers of the software stack between the NIC and the simulated
+application, thanks to minor modifications in these software libraries. We
+validate this model experimentally by comparing the execution of benchmarks on a
+cluster equipped with BXI hardware and the simulation of these benchmarks in our
+simulator. Because our low-level model has a significant cost in terms of
+performance, we also present a methodology to switch dynamically between several
+models of different accuracy during the execution of a simulation, in order to
+allow users to tune as well as possible which parts of the application should be
+modeled with the best accuracy.
+
+\@openrighttrue
+\makeatother

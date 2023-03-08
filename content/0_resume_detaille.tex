@@ -1,0 +1,128 @@
+% LTeX: language=fr-FR
+
+Pour obtenir les meilleures performances possibles dans les supercalculateurs,
+il est aujourd'hui nécessaire d'utiliser des réseaux d'interconnexion de plus en
+plus sophistiqués. C'est pour répondre à ce besoin qu'Atos produit le réseau
+BXI, composé de cartes réseau (NIC) et de commutateurs (switches). Le
+paramétrage optimal de ce matériel est une problématique complexe, en
+particulier parce que l'espace de paramètres que l'on souhaite explorer est
+grand, et qu'il n'est pas possible de faire des expériences réelles permettant
+d'explorer cet espace. Ainsi, on souhaite utiliser un simulateur pour évaluer
+les performances d'une application donnée pour un ensemble de paramètres. 
+
+La principale difficulté rencontrée lors du développement de tels simulateurs
+provient de la complexité de la pile logicielle utilisée sur les grappes de
+calcul que l'on souhaite simuler~: les applications scientifiques sont souvent
+programmées à un haut niveau d'abstraction et leurs communications traversent
+plusieurs couches logicielles avant d'être exécutées par le matériel. Il faut
+donc choisir laquelle de ces couches logicielle intercepter en simulation, afin
+de garantir une bonne précision tout en conservant des performances acceptables. 
+
+Notre contribution prend la forme d'un simulateur du réseau BXI, qui propose un
+modèle simplifié du matériel, tout en permettant l'exécution d'applications
+complètes sur plusieurs machines simulées. Ce simulateur permet de prendre en
+compte les spécificités de toutes les couches logicielles intermédiaires entre
+le NIC et l'application simulée, moyennant des modifications mineures dans
+celles-ci. Nous validons ce modèle expérimentalement en comparant l'exécution de
+benchmarks sur une grappe de calcul équipée de matériel BXI et la simulation de
+ces benchmarks dans notre simulateur. Ce modèle bas niveau ayant un coût en
+performance non négligeable, nous présentons également une méthodologie pour
+alterner dynamiquement entre plusieurs modèles de précision différente au cours
+de l'exécution d'une simulation, afin de permettre à l'utilisateur de paramétrer
+au mieux quelles parties de l'application doivent être simulées avec le plus de
+précision.
+
+
+\section*{Chapitre 1}
+
+Ce chapitre introduit le contexte de nos travaux (décrit ci-dessus). Nous y
+présentons quelques informations sur le processus de développement qu'utilisent
+les équipes d'Atos pour créer le matériel BXI, qui sert de cas d'étude à nos
+travaux. Ce premier chapitre termine par une annonce nos contribution et du plan
+du document.
+
+\section*{Chapitre 2}
+
+Le deuxième chapitre précise le contexte de nos travaux en présentant le domaine
+du calcul haute performance. Y sont présentées l'architecture d'une grappe de
+calcul (sujet d'étude de nos expériences) ainsi que les caractéristiques du
+matériel réseau développé par Atos, que nous cherchons à modéliser. En
+particulier, nous présentons l'API Portals, qui est implémentée de manière
+matérielle par l'interconnect BXI d'Atos. Le chapitre se termine par une
+présentation des programmes informatiques que nous tâcherons de simuler par la
+suite, afin d'expliquer leur intérêt dans le cadre de la validation de notre
+simulateur.
+
+\section*{Chapitre 3}
+
+Le troisième chapitre présente l'état de l'art existant dans le domaine de la
+simulation de systèmes HPC. Nous y présentons la principale difficulté auxquels
+tous les simulateurs font face~: le compromis entre précision du modèle et
+performance de la simulation. Nous détaillons plus amplement les
+caractéristiques de quelques simulateurs qui se prêtent au type de travaux que
+nous entreprenons, en particulier SimGrid que nous avons choisi d'utiliser.
+
+
+\section*{Chapitre 4}
+
+Le quatrième chapitre présente notre première contribution~: un simulateur de
+l'API Portals, optimisé pour modéliser l'interconnect BXI d'Atos. Nous
+détaillons en particulier notre description de platforme, qui modélise les
+différents composants matériels présents dans une grappe de calcul réelle, ansi
+que notre implémentation de l'API Portals dans le monde simulé, en utilisant les
+briques de base offertes par SimGrid.
+
+Nous présentons les outils qui ont été développés pour assiter l'utilisateur du
+simulateur, et nous terminons avec des expériences de validation, qui comparent
+nos résultats de simulations avec des exécutions de benchmarks sur une grappe de
+calcul réelle (équipée de matériel BXI).
+
+\section*{Chapitre 5}
+
+Le cinquième chapitre explique comment des bibliothèques logicielles abstraites
+peuvent être adaptées pour fonctionner au dessus de notre modèle bas niveau.
+Nous étudions en particulier l'API MPI, car c'est la plus couramment utilisée
+dans le domaine du calcul haute performance. Nous montrons que notre approche
+permet d'exécuter MPI en simulation avec très peu de modifications, ce qui nous
+permet de faire des simulations avec une pile logicielle beaucoup plus fidèle au
+fonctionnement réel par rapport aux modèles fluides pré-existant dans l'état de
+l'art.
+
+Nous présentons une validation expérimentales, utilisant les programmes décrit
+dans le Chapitre~2. Nous comparons nos résultat à SMPI, simulateur pré-existant
+le plus proche de notre modèle. Nous en concluons que les deux modèles ont des
+forces et faiblesses complémentaires~: là où notre approche (basée sur notre
+simulateur, S4BXI) offre un modèle plus précis, SMPI offre un modèle plus rapide
+d'exécution.
+
+Après avoir étudié MPI, nous présentons des travaux préliminaires sur la
+simulation de l'API OpenSHMEM. Nous détaillons comment adapter cette
+bibliothèque à notre simulateur, et présentons des résultats expérimentaux.
+
+\section*{Chapitre 6}
+
+Ce chapitre présente une nouvelle contribution~: en se basant sur les forces et
+les faiblesses des deux simulateurs que nous avons étudiés, S4BXI et SMPI, nous
+développons une méthodologie de simulation permettant de coupler les deux
+modèles au sein d'une même simulation. Ainsi, les utilisateurs de notre
+simulateurs peuvent changer de modèle réseau dynamiquement, durant l'exécution
+de la simulation.
+
+Nous présentons des résultats expérimentaux utilisant cette approche, sur deux
+programmes simulés. Nous proposons une conclusion qui met en avant les forces et
+les faiblesses de cette méthodologie de simulation.
+
+\section*{Chapitre 7}
+
+Nous dédions un chapitre complet à la présentation des études futures qui
+pourraient être réalisées à partir de nos travaux. Nous présentons des exemples
+d'expériences sur lesquelles nous avons commencé à travailler, mais qui
+nécessiteraient plus de temps de travail. Nous détaillons en particulier une
+étude s'intéressant à la notion de contrôle de flux, dans le but de simplifer le
+processus de développement des prochaines générations de matériel BXI.
+
+\section*{Chapitre 8}
+
+Dans ce dernier chapitre, nous présentons la conclusion de nos travaux~: nous
+résumons nos contributions principales, ainsi que les portes que nos travaux
+ouvrent pour des études futures.
